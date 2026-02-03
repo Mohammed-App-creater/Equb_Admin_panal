@@ -2,9 +2,9 @@
 import api from './axios';
 import { Member } from '../types';
 
-export const getEqubMembers = async (equbId: string): Promise<{results: Member[]}> => {
+export const getEqubMembers = async (equbId: string): Promise<Member[]> => {
   const response = await api.get<{results: Member[]}>(`/equbs/${equbId}/members/`);
-  return response.data;
+  return response.data?.results;
 };
 
 export const approveMember = async (equbId: string, memberId: string) => {

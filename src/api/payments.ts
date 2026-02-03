@@ -3,8 +3,8 @@ import api from './axios';
 import { Payment } from '../types';
 
 export const getEqubPayments = async (equbId: string): Promise<Payment[]> => {
-  const response = await api.get<Payment[]>(`/equbs/${equbId}/payments/`);
-  return response.data;
+  const response = await api.get<{results: Payment[]}>(`/equbs/${equbId}/payments/`);
+  return response.data?.results;
 };
 
 export const approvePayment = async (equbId: string, paymentId: string) => {

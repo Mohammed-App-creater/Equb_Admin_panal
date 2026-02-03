@@ -26,17 +26,17 @@ const EqubOverview: React.FC = () => {
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <StatCard 
           label="Contribution" 
-          value={`${equb.contributionAmount.toLocaleString()} ETB`} 
+          value={`${equb.contribution_amount?.toLocaleString()} ETB`} 
           icon={<svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>}
         />
         <StatCard 
           label="Members" 
-          value={equb.totalMembers} 
+          value={equb.total_members?.toString()} 
           icon={<svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>}
         />
         <StatCard 
           label="Frequency" 
-          value={equb.frequency.charAt(0).toUpperCase() + equb.frequency.slice(1)} 
+          value={equb?.equb_type?.name?.charAt(0).toUpperCase() + equb?.equb_type?.name?.slice(1)} 
           icon={<svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>}
         />
       </div>
@@ -67,7 +67,7 @@ const EqubOverview: React.FC = () => {
           <div className="space-y-4">
             <div className="flex justify-between border-b border-slate-50 pb-2">
               <span className="text-sm text-slate-500">Created On</span>
-              <span className="text-sm font-medium text-slate-900">{equb.createdAt}</span>
+              <span className="text-sm font-medium text-slate-900">{new Date(equb.created_at).toLocaleDateString()}</span>
             </div>
             <div className="flex justify-between border-b border-slate-50 pb-2">
               <span className="text-sm text-slate-500">Status</span>
@@ -75,7 +75,7 @@ const EqubOverview: React.FC = () => {
             </div>
             <div className="flex justify-between border-b border-slate-50 pb-2">
               <span className="text-sm text-slate-500">Total Pool per Round</span>
-              <span className="text-sm font-bold text-slate-900">{(equb.contributionAmount * equb.totalMembers).toLocaleString()} ETB</span>
+              <span className="text-sm font-bold text-slate-900">{equb?.total_payout} ETB</span>
             </div>
           </div>
         </Card>

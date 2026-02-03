@@ -75,13 +75,13 @@ const Members: React.FC = () => {
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
                       <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-xs">
-                        {member?.fullName?.charAt(0)}
+                        {member?.user_name?.charAt(0)}
                       </div>
-                      <span className="font-semibold text-slate-800">{member.fullName}</span>
+                      <span className="font-semibold text-slate-800">{member.user_name}</span>
                     </div>
                   </td>
                   <td className="px-6 py-4 text-sm text-slate-600">{member.phone}</td>
-                  <td className="px-6 py-4 text-sm text-slate-600">{member.joinedAt}</td>
+                  <td className="px-6 py-4 text-sm text-slate-600">{new Date(member?.joined_at).toLocaleDateString()}</td>
                   <td className="px-6 py-4">
                     <StatusBadge status={member.status} />
                   </td>

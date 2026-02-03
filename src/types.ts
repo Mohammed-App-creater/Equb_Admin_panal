@@ -74,9 +74,9 @@ export type Status = 'pending' | 'approved' | 'rejected';
 
 export interface Member {
   id: string;
-  fullName: string;
+  user_name: string;
   phone: string;
-  joinedAt: string;
+  joined_at: string;
   status: Status;
   totalContributed: number;
 }

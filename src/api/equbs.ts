@@ -7,14 +7,14 @@ export const getDashboardSummary = async (): Promise<DashboardSummary> => {
   return response.data;
 };
 
-export const getEqubs = async (): Promise<{results: Equb[]}> => {
+export const getEqubs = async (): Promise<Equb[]> => {
   const response = await api.get<{results: Equb[]}>('/equbs/');
-  return response.data;
+  return response.data?.results;
 };
 
-export const getEqub = async (id: string): Promise<{results: Equb}> => {
+export const getEqub = async (id: string): Promise<Equb> => {
   const response = await api.get<{results: Equb}>(`/equbs/${id}/`);
-  return response.data;
+  return response.data?.results;
 };
 
 export const createEqub = async (data: Partial<Equb>): Promise<Equb> => {
