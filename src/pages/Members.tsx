@@ -23,7 +23,7 @@ const Members: React.FC = () => {
     setIsLoading(true);
     try {
       const data = await getEqubMembers(id!);
-      setMembers(data.results);
+      setMembers(data);
     } catch (err) {
       console.error(err);
     } finally {
@@ -49,7 +49,6 @@ const Members: React.FC = () => {
   };
 
   if (isLoading) return <Loader />;
-  console.log(members);
   return (
     <div className="space-y-8">
       <div className="flex flex-col gap-2">
@@ -137,7 +136,7 @@ const Members: React.FC = () => {
       >
         <p className="text-slate-600 leading-relaxed">
           Are you sure you want to <strong className="text-slate-900">{actionType}</strong> the membership for 
-          <strong className="text-slate-900"> {selectedMember?.fullName}</strong>? 
+          <strong className="text-slate-900"> {selectedMember?.user_name}</strong>? 
           {actionType === 'approve' ? ' They will be allowed to participate and contribute.' : ' They will be removed from the list.'}
         </p>
       </Modal>

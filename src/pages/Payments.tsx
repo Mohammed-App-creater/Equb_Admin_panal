@@ -12,7 +12,7 @@ const Payments: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [payments, setPayments] = useState<Payment[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'pending' | 'approved' | 'rejected'>('pending');
+  const [activeTab, setActiveTab] = useState<'pending' | 'completed' | 'rejected'>('pending');
   const [isRecordModalOpen, setIsRecordModalOpen] = useState(false);
   
   // Manual form state
@@ -66,7 +66,8 @@ const Payments: React.FC = () => {
   };
 
   if (isLoading) return <Loader />;
-
+    console.log("payments", payments?.[0]?.status == activeTab); 
+    console.log("payments", filteredPayments);
   return (
     <div className="space-y-8">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -83,7 +84,7 @@ const Payments: React.FC = () => {
       </div>
 
       <div className="flex gap-1 rounded-2xl bg-slate-100 p-1 w-fit">
-        {['pending', 'approved', 'rejected'].map((tab) => (
+        {['pending', 'completed', 'rejected'].map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab as any)}
@@ -109,8 +110,8 @@ const Payments: React.FC = () => {
                   <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
                 </div>
                 <div>
-                  <h4 className="font-bold text-slate-900">{p.memberName}</h4>
-                  <p className="text-xs text-slate-500">{p.date} • {p.isManual ? 'Manual Record' : 'Online Payment'}</p>
+                  <h4 className="font-bold text-slate-900">{p.equb_member}</h4>
+                  <p className="text-xs text-slate-500">{p.paid_at} • {(p.payment_method === 'Bank' || p.payment_method === 'bank') ? 'Manual Record' : 'Online Payment'}</p>
                 </div>
               </div>
 

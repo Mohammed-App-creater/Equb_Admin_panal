@@ -1,6 +1,6 @@
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
-const API_ORIGIN = import.meta.env.VITE_API_BASE_URL || "";
+const API_ORIGIN = (import.meta as any).env.VITE_API_BASE_URL || "";
 const OWNER_API_BASE = `${API_ORIGIN.replace(/\/$/, '')}/api/owner`;
 
 const api = axios.create({

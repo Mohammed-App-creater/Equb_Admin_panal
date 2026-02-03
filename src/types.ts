@@ -83,13 +83,19 @@ export interface Member {
 
 export interface Payment {
   id: string;
-  memberId: string;
-  memberName: string;
-  amount: number;
-  date: string;
-  status: Status;
-  receiptUrl?: string;
-  isManual: boolean;
+  amount: string;
+  payment_method: string;
+  transaction_id: string;
+  paid_at: string | null;
+  receipt_image: string;
+  status: string;
+  approved_at: string | null;
+  rejected_reason: string | null;
+  round_number: number;
+  created_at: string;
+  updated_at: string;
+  equb_member: string;
+  approved_by: string | null;
 }
 
 export interface Round {

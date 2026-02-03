@@ -13,8 +13,8 @@ export const getEqubs = async (): Promise<Equb[]> => {
 };
 
 export const getEqub = async (id: string): Promise<Equb> => {
-  const response = await api.get<{results: Equb}>(`/equbs/${id}/`);
-  return response.data?.results;
+  const response = await api.get<Equb>(`/equbs/${id}/`);
+  return response.data;
 };
 
 export const createEqub = async (data: Partial<Equb>): Promise<Equb> => {

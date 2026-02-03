@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import Loader from '../components/Loader';
 import StatCard from '../components/StatCard';
 import EmptyState from '../components/EmptyState';
-import { getEqubReportSummary, downloadReportCsv, ReportSummary } from '../api/reports';
+import { getEqubReportSummary, downloadReport , ReportSummary } from '../api/reports';
 import { Equb } from '../types';
 
 
@@ -24,7 +24,7 @@ const Reports: React.FC = () => {
     if (!id) return;
     setIsDownloading(true);
     try {
-      const blob = await downloadReportCsv(id);
+      const blob = await downloadReport(id, 'payments');
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;

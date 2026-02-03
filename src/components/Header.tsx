@@ -35,7 +35,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
               <span className="text-sm font-bold">{user?.fullName?.charAt(0) || 'O'}</span>
             </button>
             
-            <div className="absolute right-0 top-full mt-2 hidden w-48 rounded-xl bg-card p-2 shadow-xl border border-border group-hover:block">
+            <div className="absolute right-0 top-full  hidden w-48 rounded-xl bg-card p-2 shadow-xl border border-border group-hover:block">
               <button 
                 onClick={logout}
                 className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-destructive hover:bg-destructive/10 transition-colors"

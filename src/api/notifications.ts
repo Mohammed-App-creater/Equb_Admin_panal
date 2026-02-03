@@ -3,14 +3,18 @@ import api from './axios';
 
 export interface Notification {
   id: string;
-  title: string;
   message: string;
-  time: string;
-  read: boolean;
-  type: 'alert' | 'info' | 'success';
+  updated_at: string;
+  is_read: boolean;
+  notif_type: string;
 }
 
 export const getNotifications = async (): Promise<Notification[]> => {
-  const response = await api.get<Notification[]>('/notifications/');
-  return response.data;
+  const response = await api.get<{results: { data: Notification[], message: string}}>(`/notifications/`);
+  return response?.data?.results.data;
+};
+
+export const markNotificationAsRead = async (id: string): Promise<void> => {
+  const response = await api.post<{results}>(`/notifications/read/`, {ids: [id]});
+  return response.data.results;
 };

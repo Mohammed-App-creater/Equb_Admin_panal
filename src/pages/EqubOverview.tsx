@@ -19,7 +19,7 @@ const EqubOverview: React.FC = () => {
   }, [id]);
 
   if (isLoading) return <Loader />;
-  if (!equb) return null;
+  if (!equb) return <div className="text-center text-red-500">Equb not found.</div>;
 
   return (
     <div className="space-y-6">

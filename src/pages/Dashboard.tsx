@@ -28,7 +28,7 @@ const Dashboard: React.FC = () => {
 
 
   return (
-    <div className="space-y-8 animate-fadeIn">
+    <div className="space-y-8 animate-fadeIn dark:text-slate-300">
       <div className="flex flex-col gap-2">
         <h2 className="text-2xl font-bold text-slate-900">Dashboard Overview</h2>
         <p className="text-slate-500">Here's what's happening with your Equb circles today.</p>
@@ -42,7 +42,7 @@ const Dashboard: React.FC = () => {
           </div>
           <div>
             <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">Total Savings</p>
-            <p className="text-xl font-bold text-slate-900">{(summary?.totalSavings || 0).toLocaleString()} ETB</p>
+            <p className="text-xl font-bold text-slate-900 dark:text-slate-300">{(summary?.totalSavings || 0).toLocaleString()} ETB</p>
           </div>
         </Card>
 
@@ -52,7 +52,7 @@ const Dashboard: React.FC = () => {
           </div>
           <div>
             <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">Members</p>
-            <p className="text-xl font-bold text-slate-900">{summary?.totalMembers || 0}</p>
+            <p className="text-xl font-bold text-slate-900 dark:text-slate-300">{summary?.totalMembers || 0}</p>
           </div>
         </Card>
 
@@ -62,7 +62,7 @@ const Dashboard: React.FC = () => {
           </div>
           <div>
             <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">Active Cycles</p>
-            <p className="text-xl font-bold text-slate-900">{summary?.activeCycles || 0}</p>
+            <p className="text-xl font-bold text-slate-900 dark:text-slate-300">{summary?.activeCycles || 0}</p>
           </div>
         </Card>
 
@@ -72,7 +72,7 @@ const Dashboard: React.FC = () => {
           </div>
           <div>
             <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">Total Equbs</p>
-            <p className="text-xl font-bold text-slate-900">{summary?.totalEqubs || 0}</p>
+            <p className="text-xl font-bold text-slate-900 dark:text-slate-300">{summary?.totalEqubs || 0}</p>
           </div>
         </Card>
       </div>
@@ -81,7 +81,7 @@ const Dashboard: React.FC = () => {
         {/* Recent Activity */}
         <div className="lg:col-span-2">
           <Card title="Recent Activity">
-            <div className="space-y-6">
+            <div className="space-y-6 dark:text-slate-300">
               {summary?.recentActivity && summary.recentActivity.length > 0 ? (
                 summary.recentActivity.map((activity) => (
                   <div key={activity.id} className="flex gap-4">
@@ -118,8 +118,8 @@ const Dashboard: React.FC = () => {
         <div className="space-y-8">
           <Card className="bg-primary text-white" title="">
              <div className="flex flex-col gap-4">
-               <h3 className="text-xl font-bold">New Cycle Goal?</h3>
-               <p className="text-primary-foreground/80 text-sm leading-relaxed text-indigo-100">
+               <h3 className="text-xl font-bold text-black dark:text-white">New Cycle Goal?</h3>
+               <p className="text-primary-foreground/80 text-sm leading-relaxed text-gray-500">
                  Create a new Equb circle to help more members save consistently. You can choose daily, weekly, or monthly contributions.
                </p>
                <button className="mt-2 rounded-xl bg-white px-4 py-3 text-sm font-bold text-primary shadow-lg shadow-black/10 transition-transform active:scale-95">

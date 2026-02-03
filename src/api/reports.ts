@@ -14,10 +14,10 @@ export const getEqubReportSummary = async (equbId: string): Promise<ReportSummar
   return response.data;
 };
 
-export const downloadReportCsv = async (equbId: string): Promise<Blob> => {
-  const response = await api.get(`/equbs/${equbId}/export/`, {
+export const downloadReport = async (equbId: string, type: string = 'payments'): Promise<Blob> => {
+  const response = await api.get(`/equbs/${equbId}/export/?type=${type}`, {
     responseType: 'blob'
   });
-
+  
   return response.data;
 };

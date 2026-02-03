@@ -27,7 +27,7 @@ const Equbs: React.FC = () => {
     setIsLoading(true);
     try {
       const data = await getEqubs();
-      setEqubs(data?.results);
+      setEqubs(data);
     } catch (err) {
       console.error(err);
     } finally {
@@ -42,7 +42,7 @@ const Equbs: React.FC = () => {
       const created = await createEqub({
         name: newEqub.name,
         contribution_amount: newEqub.contribution_amount,
-        frequency: newEqub.frequency,
+        
       });
       setEqubs((prev) => [created, ...prev]);
       setIsModalOpen(false);
@@ -90,7 +90,7 @@ const Equbs: React.FC = () => {
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {equbs?.map((equb) => (
-          <Card key={equb.id} className="relative overflow-hidden group">
+          <Card key={equb.id} className="relative overflow-hidden  group">
             <div className="flex flex-col gap-4">
               <div className="flex items-start justify-between">
                 <div>
