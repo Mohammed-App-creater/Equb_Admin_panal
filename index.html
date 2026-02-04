@@ -1,98 +1,106 @@
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Equb Owner Admin</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --background: 0 0% 100%;
-      --foreground: 222.2 84% 4.9%;
-      --card: 0 0% 100%;
-      --card-foreground: 222.2 84% 4.9%;
-      --muted: 210 40% 96.1%;
-      --muted-foreground: 215.4 16.3% 46.9%;
-      --border: 214.3 31.8% 91.4%;
-      --primary: 243.4 75.4% 58.6%;
-      --destructive: 0 84.2% 60.2%;
-      --radius: 1rem;
-    }
-    .dark {
-      --background: 222.2 84% 4.9%;
-      --foreground: 210 40% 98%;
-      --card: 222.2 84% 4.9%;
-      --card-foreground: 210 40% 98%;
-      --muted: 217.2 32.6% 17.5%;
-      --muted-foreground: 215 20.2% 65.1%;
-      --border: 217.2 32.6% 17.5%;
-      --primary: 243.4 75.4% 58.6%;
-    }
-  </style>
-  <script>
-    // Theme initialization to prevent flash
-    const theme = localStorage.getItem('theme');
-    if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      document.documentElement.classList.add('dark');
-    }
-    
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            border: "hsl(var(--border))",
-            background: "hsl(var(--background))",
-            foreground: "hsl(var(--foreground))",
-            primary: "hsl(var(--primary))",
-            destructive: "hsl(var(--destructive))",
-            muted: {
-              DEFAULT: "hsl(var(--muted))",
-              foreground: "hsl(var(--muted-foreground))",
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Equb Owner Admin</title>
+    <link rel="icon" href="./src/public/favicon.png" type="image/png" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --background: 0 0% 100%;
+        --foreground: 222.2 84% 4.9%;
+        --card: 0 0% 100%;
+        --card-foreground: 222.2 84% 4.9%;
+        --muted: 210 40% 96.1%;
+        --muted-foreground: 215.4 16.3% 46.9%;
+        --border: 214.3 31.8% 91.4%;
+        --primary: 243.4 75.4% 58.6%;
+        --destructive: 0 84.2% 60.2%;
+        --radius: 1rem;
+      }
+      .dark {
+        --background: 222.2 84% 4.9%;
+        --foreground: 210 40% 98%;
+        --card: 222.2 84% 4.9%;
+        --card-foreground: 210 40% 98%;
+        --muted: 217.2 32.6% 17.5%;
+        --muted-foreground: 215 20.2% 65.1%;
+        --border: 217.2 32.6% 17.5%;
+        --primary: 243.4 75.4% 58.6%;
+      }
+    </style>
+    <script>
+      // Theme initialization to prevent flash
+      const theme = localStorage.getItem("theme");
+      if (
+        theme === "dark" ||
+        (!theme && window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        document.documentElement.classList.add("dark");
+      }
+
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              border: "hsl(var(--border))",
+              background: "hsl(var(--background))",
+              foreground: "hsl(var(--foreground))",
+              primary: "hsl(var(--primary))",
+              destructive: "hsl(var(--destructive))",
+              muted: {
+                DEFAULT: "hsl(var(--muted))",
+                foreground: "hsl(var(--muted-foreground))",
+              },
+              card: {
+                DEFAULT: "hsl(var(--card))",
+                foreground: "hsl(var(--card-foreground))",
+              },
+              chart: {
+                1: "#4f46e5",
+                2: "#10b981",
+                3: "#f59e0b",
+                4: "#ef4444",
+                5: "#8b5cf6",
+              },
             },
-            card: {
-              DEFAULT: "hsl(var(--card))",
-              foreground: "hsl(var(--card-foreground))",
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
             },
-            chart: {
-              '1': '#4f46e5',
-              '2': '#10b981',
-              '3': '#f59e0b',
-              '4': '#ef4444',
-              '5': '#8b5cf6',
-            }
+            borderRadius: {
+              "2xl": "var(--radius)",
+              "3xl": "calc(var(--radius) + 0.5rem)",
+            },
+            boxShadow: {
+              soft: "0 4px 20px -2px rgba(0, 0, 0, 0.05)",
+            },
           },
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-          },
-          borderRadius: {
-            '2xl': 'var(--radius)',
-            '3xl': 'calc(var(--radius) + 0.5rem)',
-          },
-          boxShadow: {
-            'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
-          }
+        },
+      };
+    </script>
+    <script type="importmap">
+      {
+        "imports": {
+          "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+          "react/": "https://esm.sh/react@^19.2.4/",
+          "react": "https://esm.sh/react@^19.2.4",
+          "react-router-dom": "https://esm.sh/react-router-dom@^7.13.0",
+          "axios": "https://esm.sh/axios@^1.13.4"
         }
       }
-    }
-  </script>
-<script type="importmap">
-{
-  "imports": {
-    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
-    "react/": "https://esm.sh/react@^19.2.4/",
-    "react": "https://esm.sh/react@^19.2.4",
-    "react-router-dom": "https://esm.sh/react-router-dom@^7.13.0",
-    "axios": "https://esm.sh/axios@^1.13.4"
-  }
-}
-</script>
-<link rel="stylesheet" href="/index.css">
-</head>
-<body class="bg-background text-foreground font-sans transition-colors duration-200">
-  <div id="root"></div>
-<script type="module" src="/src/index.tsx"></script>
-</body>
+    </script>
+    <link rel="stylesheet" href="/index.css" />
+  </head>
+  <body
+    class="bg-background text-foreground font-sans transition-colors duration-200"
+  >
+    <div id="root"></div>
+    <script type="module" src="/src/index.tsx"></script>
+  </body>
 </html>
