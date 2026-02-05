@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
 import { login as loginApi } from "../api/auth";
+import toast from "react-hot-toast";
 
 const Login: React.FC = () => {
   const [phone, setPhone] = useState("");
@@ -24,8 +25,10 @@ const Login: React.FC = () => {
       const placeholderUser = { id: 'temp', phone, fullName: 'Owner', role: 'owner' };
       login(response.token, placeholderUser);
       navigate("/dashboard");
+      toast.success("Logged in successfully.");
     } catch (err: any) {
       setError(err.response?.data?.message || "Login failed. Please try again.");
+      toast.error(err.response?.data?.message || "Login failed. Please try again.");
     } finally {
       setIsLoading(false);
     }

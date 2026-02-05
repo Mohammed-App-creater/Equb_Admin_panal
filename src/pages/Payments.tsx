@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Card from '../components/Card';
 import Loader from '../components/Loader';
-import Modal from '../components/Modal';
 import StatusBadge from '../components/StatusBadge';
 import { getEqubPayments, approvePayment, rejectPayment, recordManualPayment } from '../api/payments';
 import { Payment } from '../types';
@@ -40,48 +39,11 @@ const Payments: React.FC = () => {
 
   const filteredPayments = payments.filter(p => p.status === activeTab);
 
-  const handleManualSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    // File Validation (10MB Limit)
-    if (manualForm.receipt && manualForm.receipt.size > 10 * 1024 * 1024) {
-      alert("File size exceeds 10MB limit.");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append('memberId', manualForm.memberId);
-    formData.append('amount', manualForm.amount);
-    if (manualForm.receipt) formData.append('receipt', manualForm.receipt);
-
-    try {
-      await recordManualPayment(id!, formData);
-      alert('Manual payment recorded successfully');
-      setIsRecordModalOpen(false);
-      setManualForm({ memberId: '', amount: '', receipt: null });
-      fetchPayments();
-    } catch (err) {
-      alert('Failed to record payment. Please check inputs.');
-    }
-  };
 
   if (isLoading) return <Loader />;
-    console.log("payments", payments?.[0]?.status == activeTab); 
-    console.log("payments", filteredPayments);
+
   return (
     <div className="space-y-8">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h2 className="text-2xl font-bold text-slate-900">Payments & Collections</h2>
-          <p className="text-slate-500">Track contributions and approve pending payments.</p>
-        </div>
-        <button 
-          onClick={() => setIsRecordModalOpen(true)}
-          className="flex items-center gap-2 rounded-2xl bg-primary px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-primary/25 transition-all hover:bg-secondary active:scale-95"
-        >
-          Record Manual Payment
-        </button>
-      </div>
 
       <div className="flex gap-1 rounded-2xl bg-slate-100 p-1 w-fit">
         {['pending', 'completed', 'rejected'].map((tab) => (
@@ -151,51 +113,6 @@ const Payments: React.FC = () => {
         )}
       </div>
 
-      {/* Manual Payment Modal */}
-      <Modal 
-        isOpen={isRecordModalOpen} 
-        onClose={() => setIsRecordModalOpen(false)} 
-        title="Record Manual Payment"
-      >
-        <form onSubmit={handleManualSubmit} className="space-y-6">
-          <div>
-            <label className="mb-2 block text-sm font-semibold text-slate-700">Member ID / Name</label>
-            <input 
-              required
-              className="w-full rounded-2xl border-slate-200 bg-slate-50 px-4 py-4 outline-none focus:bg-white focus:ring-4 focus:ring-primary/5 transition-all border"
-              placeholder="e.g. m1"
-              value={manualForm.memberId}
-              onChange={(e) => setManualForm({...manualForm, memberId: e.target.value})}
-            />
-          </div>
-          <div>
-            <label className="mb-2 block text-sm font-semibold text-slate-700">Amount (ETB)</label>
-            <input 
-              required
-              type="number"
-              className="w-full rounded-2xl border-slate-200 bg-slate-50 px-4 py-4 outline-none focus:bg-white focus:ring-4 focus:ring-primary/5 transition-all border"
-              placeholder="1000"
-              value={manualForm.amount}
-              onChange={(e) => setManualForm({...manualForm, amount: e.target.value})}
-            />
-          </div>
-          <div>
-            <label className="mb-2 block text-sm font-semibold text-slate-700">Receipt Image (Optional)</label>
-            <div className="relative">
-              <input 
-                type="file" 
-                accept="image/*,.pdf"
-                className="w-full rounded-2xl border-dashed border-2 border-slate-200 bg-slate-50 p-6 text-sm text-slate-500 cursor-pointer hover:bg-slate-100 transition-colors"
-                onChange={(e) => setManualForm({...manualForm, receipt: e.target.files?.[0] || null})}
-              />
-              <p className="text-xs text-slate-400 mt-2">Max 10MB.</p>
-            </div>
-          </div>
-          <button type="submit" className="w-full rounded-2xl bg-primary py-4 font-bold text-white shadow-xl shadow-primary/20 hover:bg-secondary transition-all active:scale-95">
-            Submit Record
-          </button>
-        </form>
-      </Modal>
     </div>
   );
 };
