@@ -69,8 +69,31 @@ export interface Equb {
   created_at: string;
   updated_at: string;
 }
+
+export interface CreateEqub {
+  id: string;
+  members: number;
+  pending_members: number;
+  pending_payments: number;
+  equb_type: string;
+  category: string;
+  name: string;
+  start_date: string;
+  end_date: string;
+  lottery_draw_schedule: string;
+  rules: string;
+  rules_approved: boolean;
+  payout_system: string; // You might want to define specific types like 'first_come_first_serve' | 'lottery' | etc.
+  total_members: number;
+  contribution_amount: number;
+  total_payout: string;
+  total_equb_value: string;
+  status: string; // You might want to define specific types like 'active' | 'completed' | 'pending' | etc.
+  created_at: string;
+  updated_at: string;
+}
 // WEEK 2 NEW TYPES
-export type Status = 'pending' | 'approved' | 'rejected';
+export type Status = 'pending' | 'active' | 'removed';
 
 export interface Member {
   id: string;

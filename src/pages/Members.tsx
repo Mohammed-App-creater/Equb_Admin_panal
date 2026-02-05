@@ -13,7 +13,7 @@ const Members: React.FC = () => {
   const [members, setMembers] = useState<Member[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedMember, setSelectedMember] = useState<Member | null>(null);
-  const [actionType, setActionType] = useState<"approve" | "reject" | null>(
+  const [actionType, setActionType] = useState<"approve" | "removed" | null>(
     null
   );
 
@@ -51,7 +51,7 @@ const Members: React.FC = () => {
           m.id === selectedMember.id
             ? {
                 ...m,
-                status: actionType === "approve" ? "approved" : "rejected",
+                status: actionType === "approve" ? "active" : "removed",
               }
             : m
         )
@@ -131,11 +131,11 @@ const Members: React.FC = () => {
                         <button
                           onClick={() => {
                             setSelectedMember(member);
-                            setActionType("reject");
+                            setActionType("removed");
                           }}
                           className="rounded-lg bg-red-50 px-3 py-1.5 text-xs font-bold text-red-600 hover:bg-red-100 transition-colors"
                         >
-                          Reject
+                          Remove
                         </button>
                       </div>
                     ) : (

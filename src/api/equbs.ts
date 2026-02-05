@@ -1,5 +1,5 @@
 import api from './axios';
-import { Equb, EqubCategory, EqubType, DashboardSummary } from '../types';
+import { Equb, EqubCategory, EqubType, DashboardSummary, CreateEqub } from '../types';
 
 export const getDashboardSummary = async (): Promise<DashboardSummary> => {
   
@@ -27,7 +27,7 @@ export const getEqubCategories = async (): Promise<EqubCategory[]> => {
   return response.data;
 };
 
-export const createEqub = async (data: Partial<Equb>): Promise<Equb> => {
+export const createEqub = async (data: Partial<CreateEqub>): Promise<Equb> => {
   const response = await api.post<Equb>('/equbs/', data);
   return response.data;
 };
