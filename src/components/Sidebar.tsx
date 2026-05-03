@@ -86,9 +86,12 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
             <div className="rounded-2xl bg-slate-800 p-4">
               <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">Support</p>
               <p className="text-sm text-slate-300">Need help with your Equb?</p>
-              <button className="mt-3 w-full rounded-lg bg-slate-700 py-2 text-xs font-bold text-white hover:bg-slate-600">
+              <a
+                href="mailto:support@equblink.com"
+                className="mt-3 w-full rounded-lg bg-slate-700 py-2 text-xs font-bold text-white hover:bg-slate-600 text-center block"
+              >
                 Contact Admin
-              </button>
+              </a>
             </div>
           </div>
         </div>

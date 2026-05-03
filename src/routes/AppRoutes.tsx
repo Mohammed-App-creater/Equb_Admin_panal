@@ -12,6 +12,9 @@ import Reports from "../pages/Reports";
 import Activity from "../pages/Activity";
 import Notifications from "../pages/Notifications";
 import Settings from "../pages/Settings";
+import EqubLayout from "../layouts/EqubLayout";
+import EqubOverview from "../pages/EqubOverview";
+import ReportsList from "../pages/ReportsList";
 
 const AppRoutes: React.FC = () => {
   return (
@@ -34,11 +37,16 @@ const AppRoutes: React.FC = () => {
         <Route path="settings" element={<Settings />} />
 
         {/* Dynamic Equb Routes */}
-        <Route path="equbs/:id/members" element={<Members />} />
-        <Route path="equbs/:id/payments" element={<Payments />} />
-        <Route path="equbs/:id/lottery" element={<Lottery />} />
-        <Route path="equbs/:id/reports" element={<Reports />} />
-        <Route path="equbs/:id/activity" element={<Activity />} />
+        <Route path="equbs/:id" element={<EqubLayout />}>
+          <Route index element={<EqubOverview />} />
+          <Route path="members" element={<Members />} />
+          <Route path="payments" element={<Payments />} />
+          <Route path="lottery" element={<Lottery />} />
+          <Route path="reports" element={<Reports />} />
+          <Route path="activity" element={<Activity />} />
+        </Route>
+
+        <Route path="reports" element={<ReportsList />} />
 
         {/* Placeholder routes */}
         <Route
@@ -46,14 +54,6 @@ const AppRoutes: React.FC = () => {
           element={
             <div className="p-8 text-center text-muted-foreground">
               Global members list coming soon
-            </div>
-          }
-        />
-        <Route
-          path="reports"
-          element={
-            <div className="p-8 text-center text-muted-foreground">
-              Aggregated Global Reports coming soon
             </div>
           }
         />
