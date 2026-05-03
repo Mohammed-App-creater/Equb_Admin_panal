@@ -77,7 +77,7 @@ const EqubLayout: React.FC = () => {
 
       {/* Page Content */}
       <div className="animate-fadeIn">
-        <Outlet />
+        <Outlet context={{ equb, isLoading }} />
       </div>
     </div>
   );

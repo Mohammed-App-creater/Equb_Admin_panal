@@ -1,22 +1,13 @@
 
-import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import React from 'react';
+import { Link, useOutletContext } from 'react-router-dom';
 import Card from '../components/Card';
 import StatCard from '../components/StatCard';
 import Loader from '../components/Loader';
-import { getEqub } from '../api/equbs';
-import { Equb } from '../types';
+import { EqubOutletContext } from '../types';
 
 const EqubOverview: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
-  const [equb, setEqub] = useState<Equb | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    if (id) {
-      getEqub(id).then(setEqub).finally(() => setIsLoading(false));
-    }
-  }, [id]);
+  const { equb, isLoading } = useOutletContext<EqubOutletContext>();
 
   if (isLoading) return <Loader />;
   if (!equb) return <div className="text-center text-red-500">Equb not found.</div>;

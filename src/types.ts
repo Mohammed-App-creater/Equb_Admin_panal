@@ -63,6 +63,11 @@ export interface Equb {
   updated_at: string;
 }
 
+export interface EqubOutletContext {
+  equb: Equb | null;
+  isLoading: boolean;
+}
+
 export interface CreateEqub {
   id: string;
   members: number;
