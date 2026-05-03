@@ -4,6 +4,7 @@ import EmptyState from "../components/EmptyState";
 import {
   getNotifications,
   markNotificationAsRead,
+  markAllNotificationsRead,
   Notification,
 } from "../api/notifications";
 import toast from "react-hot-toast";
@@ -52,7 +53,7 @@ const Notifications: React.FC = () => {
 
     setUpdatingIds(unreadIds);
     try {
-      await Promise.all(unreadIds.map((id) => markNotificationAsRead(id)));
+      await markAllNotificationsRead(unreadIds);
       setNotifications((prev) => prev.map((n) => ({ ...n, is_read: true })));
       toast.success("All notifications marked as read");
     } catch (err) {
