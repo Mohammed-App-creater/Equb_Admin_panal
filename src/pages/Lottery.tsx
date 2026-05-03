@@ -7,12 +7,17 @@ import { getEqubRounds, drawLottery, payoutLottery } from "../api/lottery";
 import { Round } from "../types";
 import toast from "react-hot-toast";
 
+type RoundWithPayout = Round & { is_paid?: boolean };
+
 const Lottery: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const [rounds, setRounds] = useState<Round[]>([]);
+  const [rounds, setRounds] = useState<RoundWithPayout[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [isDrawing, setIsDrawing] = useState(false);
+  const [isPayoutConfirmOpen, setIsPayoutConfirmOpen] = useState(false);
+  const [isPayingOut, setIsPayingOut] = useState(false);
+  const [selectedRound, setSelectedRound] = useState<number | null>(null);
 
   useEffect(() => {
     if (id) fetchRounds();
@@ -52,14 +57,27 @@ const Lottery: React.FC = () => {
     }
   };
 
-  const handlePayout = async (roundNumber: number) => {
-    if (!id) return;
+  const handlePayout = async () => {
+    if (!id || selectedRound == null) return;
+    setIsPayingOut(true);
     try {
-      await payoutLottery(id, roundNumber);
-      alert(`Payout completed for Round ${roundNumber}`);
-      fetchRounds();
-    } catch (err) {
-      alert("Payout failed.");
+      await payoutLottery(id, selectedRound);
+      setRounds((prev) =>
+        prev.map((r) =>
+          r.roundNumber === selectedRound ? { ...r, is_paid: true } : r
+        )
+      );
+      toast.success(`Payout completed for Round ${selectedRound}`);
+      setIsPayoutConfirmOpen(false);
+      setSelectedRound(null);
+    } catch (err: any) {
+      const message =
+        err.response?.data?.error ||
+        err.response?.data?.detail ||
+        "Payout failed.";
+      toast.error(message);
+    } finally {
+      setIsPayingOut(false);
     }
   };
 
@@ -155,6 +173,18 @@ const Lottery: React.FC = () => {
                       </svg>
                     </div>
                   </div>
+                  {round.status === "completed" && !round.is_paid && (
+                    <button
+                      disabled={isPayingOut}
+                      onClick={() => {
+                        setSelectedRound(round.roundNumber);
+                        setIsPayoutConfirmOpen(true);
+                      }}
+                      className="w-full bg-primary px-8 py-2 text-sm font-bold text-white rounded-xl shadow-lg shadow-primary/20 hover:bg-secondary active:scale-95 disabled:opacity-50"
+                    >
+                      Mark as Paid
+                    </button>
+                  )}
                 </div>
               ) : (
                 <p className="py-4 text-sm text-slate-400 font-medium italic">
@@ -213,6 +243,43 @@ const Lottery: React.FC = () => {
             </strong>{" "}
             is an irreversible action. A winner will be randomly selected from
             all eligible participants who have cleared their payments.
+          </p>
+        </div>
+      </Modal>
+
+      <Modal
+        isOpen={isPayoutConfirmOpen}
+        onClose={() => !isPayingOut && setIsPayoutConfirmOpen(false)}
+        title="Confirm Payout"
+        footer={
+          <>
+            <button
+              disabled={isPayingOut}
+              onClick={() => setIsPayoutConfirmOpen(false)}
+              className="px-4 py-2 text-sm font-bold text-slate-500 hover:bg-slate-100 rounded-xl"
+            >
+              Cancel
+            </button>
+            <button
+              disabled={isPayingOut}
+              onClick={handlePayout}
+              className="bg-primary px-8 py-2 text-sm font-bold text-white rounded-xl shadow-lg shadow-primary/20 hover:bg-secondary active:scale-95 disabled:opacity-50"
+            >
+              {isPayingOut ? "Processing..." : "Mark as Paid"}
+            </button>
+          </>
+        }
+      >
+        <div className="text-center space-y-4">
+          <p className="text-slate-900 font-bold text-lg">
+            Mark Round {selectedRound} as paid?
+          </p>
+          <p className="text-slate-500 text-sm leading-relaxed">
+            This confirms the winner has received their payout for{" "}
+            <strong className="text-slate-900 text-base">
+              Round {selectedRound}
+            </strong>
+            . This action cannot be undone.
           </p>
         </div>
       </Modal>
