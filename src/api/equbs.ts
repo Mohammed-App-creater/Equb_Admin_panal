@@ -18,13 +18,13 @@ export const getEqub = async (id: string): Promise<Equb> => {
 };
 
 export const getEqubTypes = async (): Promise<EqubType[]> => {
-  const response = await api.get<EqubType[]>('/equbs/types/');
-  return response.data;
+  const response = await api.get<any>('/equbs/types/');
+  return response.data.results ?? response.data;
 };
 
 export const getEqubCategories = async (): Promise<EqubCategory[]> => {
-  const response = await api.get<EqubCategory[]>('/equbs/categories/');
-  return response.data;
+  const response = await api.get<any>('/equbs/categories/');
+  return response.data.results ?? response.data;
 };
 
 export const createEqub = async (data: Partial<CreateEqub>): Promise<Equb> => {
@@ -39,4 +39,36 @@ export const updateEqub = async (id: string, data: Partial<Equb>): Promise<Equb>
 
 export const deleteEqub = async (id: string): Promise<void> => {
   await api.delete(`/equbs/${id}/`);
+};
+
+export const createEqubType = async (data: Partial<EqubType>): Promise<EqubType> => {
+  const response = await api.post<EqubType>('/equbs/types/', data);
+  return response.data;
+};
+
+export const updateEqubType = async (id: string, data: Partial<EqubType>): Promise<EqubType> => {
+  const response = await api.put<EqubType>(`/equbs/types/${id}/`, data);
+  return response.data;
+};
+
+export const deleteEqubType = async (id: string): Promise<void> => {
+  await api.delete(`/equbs/types/${id}/`);
+};
+
+export const createEqubCategory = async (data: FormData): Promise<EqubCategory> => {
+  const response = await api.post<EqubCategory>('/equbs/categories/', data, {
+    headers: { 'Content-Type': 'multipart/form-data' }
+  });
+  return response.data;
+};
+
+export const updateEqubCategory = async (id: string, data: FormData): Promise<EqubCategory> => {
+  const response = await api.put<EqubCategory>(`/equbs/categories/${id}/`, data, {
+    headers: { 'Content-Type': 'multipart/form-data' }
+  });
+  return response.data;
+};
+
+export const deleteEqubCategory = async (id: string): Promise<void> => {
+  await api.delete(`/equbs/categories/${id}/`);
 };

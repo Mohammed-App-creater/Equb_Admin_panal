@@ -11,6 +11,7 @@ import Lottery from "../pages/Lottery";
 import Reports from "../pages/Reports";
 import Activity from "../pages/Activity";
 import Notifications from "../pages/Notifications";
+import Settings from "../pages/Settings";
 
 const AppRoutes: React.FC = () => {
   return (
@@ -30,6 +31,7 @@ const AppRoutes: React.FC = () => {
         <Route path="equbs" element={<Equbs />} />
 
         <Route path="notifications" element={<Notifications />} />
+        <Route path="settings" element={<Settings />} />
 
         {/* Dynamic Equb Routes */}
         <Route path="equbs/:id/members" element={<Members />} />
