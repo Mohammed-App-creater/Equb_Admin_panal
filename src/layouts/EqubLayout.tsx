@@ -44,11 +44,11 @@ const EqubLayout: React.FC = () => {
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
               <div className="flex items-center gap-3 mb-1">
-                <h1 className="text-2xl font-bold text-slate-900">{equb.name}</h1>
-                <StatusBadge status={equb.status} />
+                <h1 className="text-2xl font-bold text-slate-900">{equb?.name ?? ''}</h1>
+                <StatusBadge status={equb?.status ?? ''} />
               </div>
               <p className="text-slate-500 text-sm">
-                {Number(equb.contribution_amount).toLocaleString()} ETB • {equb.equb_type.name} contribution
+                {Number(equb?.contribution_amount ?? 0).toLocaleString()} ETB • {equb?.equb_type?.name ?? ''} contribution
               </p>
             </div>
             {/* Quick Stats or Actions could go here */}
