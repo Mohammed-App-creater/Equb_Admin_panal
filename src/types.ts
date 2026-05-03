@@ -14,18 +14,9 @@ export interface AuthResponse {
 }
 
 export interface DashboardSummary {
-  totalEqubs: number;
-  totalMembers: number;
-  activeCycles: number;
-  totalSavings: number;
-  recentActivity: Activity[];
-}
-
-export interface Activity {
-  id: string;
-  type: 'payment' | 'draw' | 'new_member';
-  message: string;
-  timestamp: string;
+  total_equbs: number;
+  pending_members: number;
+  pending_payments: number;
 }
 
 export interface EqubListResponse {
