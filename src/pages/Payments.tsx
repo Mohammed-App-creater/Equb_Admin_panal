@@ -220,12 +220,22 @@ const Payments: React.FC = () => {
 
           setActionLoading(true);
           try {
+            const paymentId = selectedPayment.id;
             if (actionType === "approve") {
-              await approvePayment(id!, selectedPayment.id);
+              await approvePayment(id!, paymentId);
+              setPayments((prev) =>
+                prev.map((p) =>
+                  p.id === paymentId ? { ...p, status: "completed" } : p
+                )
+              );
             } else {
-              await rejectPayment(id!, selectedPayment.id);
+              await rejectPayment(id!, paymentId);
+              setPayments((prev) =>
+                prev.map((p) =>
+                  p.id === paymentId ? { ...p, status: "rejected" } : p
+                )
+              );
             }
-            await fetchPayments();
             setConfirmOpen(false);
           } catch (err) {
             toast.error("Action failed. Please try again.");

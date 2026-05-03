@@ -42,7 +42,7 @@ const Lottery: React.FC = () => {
     setIsDrawing(true);
     try {
       await drawLottery(id, currentRound.roundNumber);
-      alert(`Winner drawn for Round ${currentRound.roundNumber}!`);
+      toast.success(`Winner drawn for Round ${currentRound.roundNumber}!`);
       setIsConfirmOpen(false);
       fetchRounds();
     } catch (err) {
