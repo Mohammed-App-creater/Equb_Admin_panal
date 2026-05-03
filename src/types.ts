@@ -1,9 +1,11 @@
 
 export interface User {
-  id: string;
+  id: number;
   phone: string;
-  fullName: string;
-  role: string;
+  email: string | null;
+  is_admin: boolean;
+  is_equb_admin: boolean;
+  is_customer: boolean;
 }
 
 export interface AuthResponse {

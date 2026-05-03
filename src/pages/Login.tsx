@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
-import { login as loginApi } from "../api/auth";
+import { login as loginApi, getProfile } from "../api/auth";
 import toast from "react-hot-toast";
 
 const Login: React.FC = () => {
@@ -20,10 +20,10 @@ const Login: React.FC = () => {
 
     try {
       const response = await loginApi({ phone, password });
-      // Since response only returns token, we use a placeholder user for now
-      // or we could fetch profile right after login
-      const placeholderUser = { id: 'temp', phone, fullName: 'Owner', role: 'owner' };
-      login(response.token, placeholderUser);
+      const token = response.token;
+      localStorage.setItem('token', token);
+      const profile = await getProfile();
+      login(token, profile);
       navigate("/dashboard");
       toast.success("Logged in successfully.");
     } catch (err: any) {

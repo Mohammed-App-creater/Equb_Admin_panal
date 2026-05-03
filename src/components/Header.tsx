@@ -26,13 +26,13 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
           <ThemeToggle />
           
           <div className="hidden flex-col items-end sm:flex">
-            <span className="text-sm font-semibold text-foreground">{user?.fullName || 'Owner Name'}</span>
-            <span className="text-xs text-muted-foreground capitalize">{user?.role || 'Admin'}</span>
+            <span className="text-sm font-semibold text-foreground">{user?.phone ?? 'Owner'}</span>
+            <span className="text-xs text-muted-foreground capitalize">{user?.is_admin ? 'Admin' : user?.is_equb_admin ? 'Equb Admin' : 'User'}</span>
           </div>
           
           <div className="relative group">
             <button className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
-              <span className="text-sm font-bold">{user?.fullName?.charAt(0) || 'O'}</span>
+              <span className="text-sm font-bold">{user?.phone?.charAt(0) ?? 'O'}</span>
             </button>
             
             <div className="absolute right-0 top-full  hidden w-48 rounded-xl bg-card p-2 shadow-xl border border-border group-hover:block">
